@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -8,10 +9,29 @@ module.exports = {
     './index.js'
   ],
   output: {
-    publicPath: '/build/',
-    filename: '[name].js'
+    publicPath: '/',
+    filename: 'build/[name].js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        loader: ['style-loader', 'css-loader'],
+        exclude: /node_modules/
+      }
+    ]
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      inject: 'body',
+      template: "./index.html"
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
