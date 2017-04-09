@@ -6,7 +6,8 @@
   "author": "vince <vincefanz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./scripts/start.js"
+    "start": "node ./scripts/start.js",
+    "build": ""
   },
   "dependencies": {
     "react": "^15.4.2",

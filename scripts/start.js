@@ -6,6 +6,7 @@ const detect = require('detect-port')
 const chalk = require('chalk')
 const webpackConfig = require('../config/webpack.config.dev.js')
 const getProcessForPort = require('./getProcessForPort')
+const clearConsole = require('./clearConsole')
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000
 const app = express()
@@ -61,6 +62,7 @@ function run(port) {
 }
 
 detect(DEFAULT_PORT).then(port => {
+  clearConsole()
   if (port === DEFAULT_PORT) {
     run(DEFAULT_PORT)
     return
