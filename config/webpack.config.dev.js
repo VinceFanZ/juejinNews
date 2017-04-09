@@ -1,15 +1,17 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const paths = require('./paths')
 
 module.exports = {
   context: path.resolve('src'),
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&overlay=false&reload=true',
-    './index.js'
+    paths.appIndex
   ],
   output: {
     publicPath: '/',
+    path: path.resolve(paths.appBuild),
     filename: 'static/js/[name].js'
   },
   module: {
@@ -28,9 +30,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: 'index.html',
       inject: true,
-      template: './index.html'
+      template: paths.appHtml
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -39,5 +40,5 @@ module.exports = {
     })
   ],
 
-  devtool: 'inline-source-map'
+  devtool: 'cheap-module-source-map'
 }

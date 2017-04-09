@@ -10,19 +10,19 @@ const execOptions = {
   ]
 }
 
-function getProcessIdOnport (port) {
+function getProcessIdOnport(port) {
   return execSync('lsof -i:' + port + ' -P -t -sTCP:LISTEN', execOptions).trim()
 }
 
 function getDirectoryOfProcessById(processId) {
-  return execSync('lsof -p '+ processId + ' | awk \'$4=="cwd" {print $9}\'', execOptions).trim();
+  return execSync('lsof -p ' + processId + ' | awk \'$4=="cwd" {print $9}\'', execOptions).trim();
 }
 
 function getProcessCommand(processId) {
   return execSync('ps -o command -p ' + processId + ' | sed -n 2p', execOptions)
 }
 
-function getProcessForPort (port) {
+function getProcessForPort(port) {
   try {
     const processId = getProcessIdOnport(port)
     const directory = getDirectoryOfProcessById(processId)

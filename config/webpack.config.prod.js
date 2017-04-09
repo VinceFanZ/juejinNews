@@ -1,43 +1,56 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const paths = require('./paths')
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve('src'),
   entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&overlay=false&reload=true',
-    './index.js'
+    paths.appIndex
   ],
   output: {
-    publicPath: '/',
-    filename: 'build/[name].js'
+    publicPath: paths.servedPath,
+    path: path.resolve(paths.appBuild),
+    filename: 'static/js/[name].[hash:8].js'
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        include: /src/
       },
       {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader'],
-        exclude: /node_modules/
+        include: /src/
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      inject: 'body',
-      template: "./index.html"
+      inject: true,
+      template: paths.appHtml
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true, // React doesn't support IE8
+        warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+        screw_ie8: true
+      }
     })
   ],
 
-  devtool: 'inline-source-map'
+  devtool: 'source-map'
 }
