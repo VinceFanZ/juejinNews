@@ -3,34 +3,34 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  context: path.resolve(__dirname, 'src'),
+  context: path.resolve('src'),
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&overlay=false&reload=true',
     './index.js'
   ],
   output: {
     publicPath: '/',
-    filename: 'build/[name].js'
+    filename: 'static/js/[name].js'
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        include: /src/
       },
       {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader'],
-        exclude: /node_modules/
+        include: /src/
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      inject: 'body',
-      template: "./index.html"
+      filename: 'index.html',
+      inject: true,
+      template: './index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
