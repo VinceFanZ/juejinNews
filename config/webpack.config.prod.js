@@ -1,37 +1,14 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const merge = require('webpack-merge')
 const paths = require('./paths')
+const baseConfig = require('./webpack.config.base')
 
-module.exports = {
-  context: path.resolve('src'),
-  entry: [
-    paths.appIndex
-  ],
+const prodConfig = {
   output: {
     publicPath: paths.servedPath,
-    path: path.resolve(paths.appBuild),
-    filename: 'static/js/[name].[hash:8].js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: /src/
-      },
-      {
-        test: /\.css$/,
-        loader: ['style-loader', 'css-loader'],
-        include: /src/
-      }
-    ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     }),
@@ -51,6 +28,7 @@ module.exports = {
       }
     })
   ],
-
   devtool: 'source-map'
 }
+
+module.exports = merge(baseConfig, prodConfig)
