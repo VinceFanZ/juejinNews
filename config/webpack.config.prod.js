@@ -7,6 +7,7 @@ const baseConfig = require('./webpack.config.base')
 const prodConfig = {
   output: {
     publicPath: paths.servedPath,
+    filename: 'static/js/[name].[hash:8].js'
   },
   plugins: [
     new webpack.DefinePlugin({
