@@ -2,8 +2,20 @@
 
 ## development server
 
-### `yarn start` or `npm start`
+``` sh
+yarn start
+```
+or
+``` sh
+npm start
+```
 
 ## build
 
-### `yarn run build` or `npm run build`
+``` sh
+yarn run build
+```
+or
+``` sh
+npm run build
+```
