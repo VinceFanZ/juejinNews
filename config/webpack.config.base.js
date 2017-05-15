@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const manifestPlugin = require('pwa-manifest-webpack-plugin')
 const paths = require('./paths')
 
 module.exports = {
@@ -30,6 +31,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml
+    }),
+    new manifestPlugin({
+      name: 'Funny',
+      description: 'Funny',
+      display: 'standalone',
+      icon: {
+        src: path.resolve('src/assets/icon.png'),
+        sizes: [128, 144, 152]
+      }
     })
   ]
 }
