@@ -1,5 +1,7 @@
 const webpack = require('webpack')
+const path = require('path')
 const merge = require('webpack-merge')
+const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
 
@@ -26,7 +28,17 @@ const prodConfig = {
         comments: false,
         screw_ie8: true
       }
-    })
+    }),
+    new PwaManifest({
+      name: 'Funny',
+      short_name: 'Funny',
+      description: 'Funny PWA',
+      display: 'standalone',
+      icons: [{
+        src: path.resolve('src/assets/icon.png'),
+        sizes: [128, 144, 152],
+      }]
+    }),
   ],
   devtool: 'source-map'
 }

@@ -12,9 +12,16 @@
   "rules": {
     "strict": 0,
     "comma-dangle": 0,
-    "semi": [ 2, "never"],
+    "semi": [2, "never"],
     "prefer-template": 1,
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": false}]
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": true,
+      "optionalDependencies": false,
+      "peerDependencies": false
+    }],
+    "react/jsx-filename-extension": [1, {
+      "extensions": [".js", ".jsx"]
+    }]
   },
   "env": {
     "browser": true
