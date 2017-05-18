@@ -1,45 +1,45 @@
 const path = require('path')
-const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const manifestPlugin = require('pwa-manifest-webpack-plugin')
+const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
 
 module.exports = {
   context: path.resolve('src'),
   entry: [
-    paths.appIndex
+    paths.appIndex,
   ],
   output: {
     path: path.resolve(paths.appBuild),
-    filename: 'static/js/[name].js'
+    filename: 'static/js/[name].js',
   },
   module: {
     rules: [
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: /src/
+        include: /src/,
       },
       {
         test: /\.css$/,
         loader: ['style-loader', 'css-loader'],
-        include: /src/
-      }
-    ]
+        include: /src/,
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       inject: true,
-      template: paths.appHtml
+      template: paths.appHtml,
     }),
-    new manifestPlugin({
+    new PwaManifest({
       name: 'Funny',
-      description: 'Funny',
+      short_name: 'Funny',
+      description: 'Funny PWA',
       display: 'standalone',
-      icon: {
+      icons: [{
         src: path.resolve('src/assets/icon.png'),
-        sizes: [128, 144, 152]
-      }
-    })
-  ]
+        sizes: [128, 144, 152],
+      }]
+    }),
+  ],
 }

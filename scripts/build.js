@@ -1,4 +1,3 @@
-const path = require('path')
 const shell = require('shelljs')
 const chalk = require('chalk')
 const webpack = require('webpack')
@@ -8,7 +7,7 @@ const paths = require('../config/paths')
 function printErrors(summary, errors) {
   console.log(chalk.red(summary))
   console.log()
-  errors.forEach(err => {
+  errors.forEach((err) => {
     console.log(err.message || err)
     console.log()
   })
@@ -28,9 +27,7 @@ function build() {
     }
 
     console.log(chalk.green('Compiled successfully.'))
-
   })
-
 }
 
 shell.rm('-rf', paths.appBuild)

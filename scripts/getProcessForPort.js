@@ -6,8 +6,8 @@ const execOptions = {
   stdio: [
     'pipe', // stdin (default)
     'pipe', // stdout (default)
-    'ignore' //stderr
-  ]
+    'ignore', //stderr
+  ],
 }
 
 function getProcessIdOnport(port) {
