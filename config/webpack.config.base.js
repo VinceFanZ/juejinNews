@@ -1,6 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const PwaManifest = require('webpack-pwa-manifest')
+const eslintFormatter = require('eslint-friendly-formatter')
 const paths = require('./paths')
 
 module.exports = {
@@ -14,6 +15,17 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        include: /src/,
+        use: [{
+          loader: 'eslint-loader',
+          options: {
+            formatter: eslintFormatter
+          }
+        }]
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
