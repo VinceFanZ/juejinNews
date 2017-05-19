@@ -1,7 +1,19 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const eslintFormatter = require('eslint-friendly-formatter')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const paths = require('./paths')
+
+const env = process.env.NODE_ENV
+const cssLoader = [
+  {
+    loader: 'css-loader',
+    options: {
+      modules: true,
+      localIdentName: '[path][name]__[local]--[hash:base64:5]'
+    },
+  }
+]
 
 module.exports = {
   context: path.resolve('src'),
@@ -32,8 +44,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader'],
         include: /src/,
+        use: env === 'production'
+          ? ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: cssLoader
+          })
+          : ['style-loader'].concat(cssLoader)
       },
     ],
   },

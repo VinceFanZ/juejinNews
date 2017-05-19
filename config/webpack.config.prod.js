@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const merge = require('webpack-merge')
 const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
@@ -28,6 +29,9 @@ const prodConfig = {
         comments: false,
         screw_ie8: true
       }
+    }),
+    new ExtractTextPlugin({
+      filename: 'static/styles/[name].css'
     }),
     new PwaManifest({
       name: 'Funny',
