@@ -7,6 +7,7 @@ const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
 
 const prodConfig = {
+  cache: false,
   output: {
     publicPath: paths.servedPath,
     filename: 'static/js/[name].[hash:8].js'

@@ -1,5 +1,8 @@
 .title {
+  display: flex;
+  justify-content: center;
   color: #333;
+  background-color: rgb(100 222.2 100.9 / 30%);
 }
 
 .fs-18 {
