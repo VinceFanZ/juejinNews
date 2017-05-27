@@ -3,7 +3,7 @@ const paths = {
   appIndex: './index.js',
   appHtml: './index.html',
   appBuild: 'dist',
-  servedPath: '//ftp6158534.host536.zhujiwu.me/',
+  servedPath: '',
 }
 
 module.exports = paths
