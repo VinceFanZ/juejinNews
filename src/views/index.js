@@ -23,7 +23,7 @@ class App extends React.PureComponent {
   render() {
     return (
       <div>
-        <p className={app.title + ' ' + app['fs-18']}>DATE</p>
+        <p className={`${app.title} ${app['fs-18']}`}>DATE</p>
         <p>{this.state.date.toLocaleTimeString()}</p>
       </div>
     )
