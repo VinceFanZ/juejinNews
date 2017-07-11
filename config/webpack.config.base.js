@@ -23,7 +23,7 @@ const cssLoader = [
       plugins: (loader) => {
         const plugins = [
           postcssImport({ root: loader.resourcePath }),
-          cssnext({ browsers: ['> 5%', 'last 2 versions', 'IOS 8'] }) // include autoprefixer
+          cssnext({ browsers: ['> 1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9', 'IOS 8'], flexbox: 'no-2009' }) // include autoprefixer
         ]
         if (env === 'production') {
           plugins.push(cssnano({ autoprefixer: false })) // compresses css; disabled autoprefixer
