@@ -38,6 +38,7 @@ module.exports = {
   context: path.resolve('src'),
   entry: [
     paths.appIndex,
+    // vendor: ''
   ],
   output: {
     path: path.resolve(paths.appBuild),
@@ -56,11 +57,13 @@ module.exports = {
           }
         }]
       },
+
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loader: 'babel-loader?cacheDirectory',
         include: /src/,
       },
+
       {
         test: /\.css$/,
         include: /src/,
@@ -71,15 +74,30 @@ module.exports = {
           })
           : ['style-loader'].concat(cssLoader)
       },
+
     ],
+    noParse: /node_modules\/(jquey|chart\.js)/  // 脱离webpack的解析
   },
+
   resolve: {
     modules: [
-      path.join(__dirname, 'src'),
+      path.join(__dirname, '..', 'src'),
       'node_modules'
-    ]
+    ],
+    extensions: ['.js', '.json'],
+    alias: {
+      // 'react': 'react/dist/react.js',
+      // 'react-dom': 'react-dom/dist/react-dom.js',
+      '~': path.join(__dirname, '..', 'src')
+    },
+    mainFields: ['jsnext:main', 'module', 'main'],  // 优化支持tree-shaking的库
   },
+
   plugins: [
+    // new webpack.DllPlugin({
+    //   path: path.join(__dirname, '..', paths.appBuild, '[name]-manifest.json'),
+    //   name: '[name]_[hash]'
+    // }),  // https://webpack.github.io/analyse/
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
