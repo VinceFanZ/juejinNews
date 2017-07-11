@@ -37,8 +37,7 @@ const cssLoader = [
 module.exports = {
   context: path.resolve('src'),
   entry: [
-    paths.appIndex,
-    // vendor: ''
+    paths.appIndex
   ],
   output: {
     path: path.resolve(paths.appBuild),

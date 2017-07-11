@@ -8,6 +8,10 @@ const baseConfig = require('./webpack.config.base')
 
 const prodConfig = {
   cache: false,
+  entry: {
+    app: paths.appIndex,
+    vendor: ['react', 'react-dom'],
+  },
   output: {
     publicPath: paths.servedPath,
     filename: 'static/js/[name].[hash:8].js'
@@ -15,6 +19,10 @@ const prodConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),  // webpack3 Scope Hoisting
     new webpack.optimize.UglifyJsPlugin({
