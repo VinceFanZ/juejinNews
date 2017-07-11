@@ -85,9 +85,6 @@ module.exports = {
     ],
     extensions: ['.js', '.json'],
     alias: {
-      // 'react': 'react/dist/react.js',
-      // 'react-dom': 'react-dom/dist/react-dom.js',
-      '~': path.join(__dirname, '..', 'src')
     },
     mainFields: ['jsnext:main', 'module', 'main'],  // 优化支持tree-shaking的库
   },
