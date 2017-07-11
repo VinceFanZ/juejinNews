@@ -22,7 +22,7 @@ const prodConfig = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity
+      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),  // webpack3 Scope Hoisting
     new webpack.optimize.UglifyJsPlugin({
