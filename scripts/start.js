@@ -38,6 +38,7 @@ function runDevServer(protocol, host, port) {
     stats: {
       colors: true,
       chunks: false,
+      modules: false,
     },
   }))
 

@@ -4,29 +4,43 @@ const webpack = require('webpack')
 const config = require('../config/webpack.config.prod')
 const paths = require('../config/paths')
 
-function printErrors(summary, errors) {
-  console.log(chalk.red(summary))
-  console.log()
-  errors.forEach((err) => {
-    console.log(err.message || err)
-    console.log()
-  })
-}
+const compiler = webpack(config)
 
 function build() {
   console.log('Creating an optimized production build...')
-  webpack(config).run((err, stats) => {
+  compiler.run((err, stats) => {
     if (err) {
-      printErrors('Failed to compile.', [err])
+      console.log(chalk.red('Failed to compile.'))
+      console.log(chalk.red(err.stack || err))
+      if (err.details) {
+        console.log(chalk.red(err.details))
+      }
       process.exit(1)
     }
 
-    if (stats.compilation.errors.length) {
-      printErrors('Failed to compile.', stats.compilation.errors)
+    const info = stats.toJson()
+
+    if (stats.hasErrors()) {
+      console.log(chalk.red('Error:'))
+      console.log(chalk.red(info.errors))
       process.exit(1)
     }
 
-    console.log(chalk.green('Compiled successfully.'))
+    if (stats.hasWarnings()) {
+      console.log(chalk.yellow('Warning:'))
+      console.log(chalk.yellow(info.warnings))
+    }
+    // compile print
+    console.log(`${stats.toString({
+      colors: true,
+      modules: false,
+      children: false,
+      chunks: false,
+      chunkModules: false,
+      warnings: false,
+      errors: false
+    })}\n`)
+    console.log(chalk.green('Compiled successfully!'))
   })
 }
 
