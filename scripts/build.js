@@ -44,6 +44,6 @@ function build() {
   })
 }
 
-shell.rm('-rf', paths.appBuild)
+// shell.rm('-rf', paths.appBuild)
 
 build()

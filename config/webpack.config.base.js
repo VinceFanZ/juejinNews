@@ -90,10 +90,6 @@ module.exports = {
   },
 
   plugins: [
-    // new webpack.DllPlugin({
-    //   path: path.join(__dirname, '..', paths.appBuild, '[name]-manifest.json'),
-    //   name: '[name]_[hash]'
-    // }),  // https://webpack.github.io/analyse/
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,

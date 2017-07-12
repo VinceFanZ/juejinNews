@@ -5,12 +5,13 @@ const merge = require('webpack-merge')
 const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
+const vendorManifest = require('../vendor-manifest')
 
 const prodConfig = {
   cache: false,
   entry: {
     app: paths.appIndex,
-    vendor: ['react', 'react-dom'],
+    // vendor: ['react', 'react-dom'],
   },
   output: {
     publicPath: paths.servedPath,
@@ -20,9 +21,13 @@ const prodConfig = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    //   minChunks: module => module.context && module.context.indexOf('node_modules') !== -1
+    // }),
+    new webpack.DllReferencePlugin({
+      context: path.resolve('src'),
+      manifest: vendorManifest,
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),  // webpack3 Scope Hoisting
     new webpack.optimize.UglifyJsPlugin({
