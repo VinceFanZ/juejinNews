@@ -24,5 +24,3 @@ module.exports = {
     }),
   ],
 }
-
-// https://webpack.github.io/analyse/
