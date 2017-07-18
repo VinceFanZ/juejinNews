@@ -36,9 +36,9 @@ const cssLoader = [
 
 module.exports = {
   context: path.resolve('src'),
-  entry: [
-    paths.appIndex
-  ],
+  entry: {
+    main: [paths.appIndex]
+  },
   output: {
     path: path.resolve(paths.appBuild),
     filename: 'static/js/[name].js',
@@ -59,7 +59,7 @@ module.exports = {
 
       {
         test: /\.js$/,
-        loader: 'babel-loader?cacheDirectory',
+        loaders: env === 'production' ? ['babel-loader?cacheDirectory'] : ['react-hot-loader/webpack', 'babel-loader?cacheDirectory'],
         include: /src/,
       },
 
@@ -86,7 +86,7 @@ module.exports = {
     extensions: ['.js', '.json'],
     alias: {
     },
-    mainFields: ['jsnext:main', 'module', 'main'],  // 优化支持tree-shaking的库
+    mainFields: ['jsnext:main', 'browser', 'module', 'main'],  // 优化支持tree-shaking的库
   },
 
   plugins: [

@@ -3,9 +3,6 @@ const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 
 const devConfig = {
-  entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&overlay=false&reload=true'
-  ],
   output: {
     publicPath: '/'
   },

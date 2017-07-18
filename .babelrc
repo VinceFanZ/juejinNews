@@ -10,9 +10,9 @@
           "uglify": true
         },
         // Disable polyfill transforms
-        "useBuiltIns": false,
+        "useBuiltIns": false
         // Do not transform modules to CJS
-        "modules": false
+        // "modules": false  ／／ 暂时不使用 ES6 modules。等bug修复 https://github.com/visionmedia/debug/issues/477
       }
     ],
     "react"
