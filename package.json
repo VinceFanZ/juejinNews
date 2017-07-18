@@ -7,8 +7,6 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV=development node ./scripts/start.js",
-    "dll": "webpack --config ./config/webpack.config.dll.js",
-    "prebuild": "yarn run dll",
     "build": "NODE_ENV=production node ./scripts/build.js"
   },
   "dependencies": {

@@ -35,6 +35,7 @@ const cssLoader = [
 ]
 
 module.exports = {
+  name: 'main',
   context: path.resolve('src'),
   entry: {
     main: [paths.appIndex]

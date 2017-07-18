@@ -7,12 +7,31 @@ const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
 const vendorManifest = require('../vendor-manifest')
 
+const dll = {
+  name: 'vendor',
+  entry: {
+    vendor: [
+      'react',
+      'react-dom'
+    ],
+  },
+  output: {
+    path: path.resolve(paths.appBuild),
+    filename: 'static/js/[name].[hash:8].js',
+    library: '[name]_[hash]'
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      path: path.join(__dirname, '..', '[name]-manifest.json'),
+      name: '[name]_[hash]',
+      context: path.resolve('src'),
+    }),
+  ],
+}
+
 const prodConfig = {
   cache: false,
-  entry: {
-    app: paths.appIndex,
-    // vendor: ['react', 'react-dom'],
-  },
+  dependencies: ['vendor'],
   output: {
     publicPath: paths.servedPath,
     filename: 'static/js/[name].[hash:8].js'
@@ -60,4 +79,4 @@ const prodConfig = {
   devtool: 'source-map'
 }
 
-module.exports = merge(baseConfig, prodConfig)
+module.exports = [dll, merge(baseConfig, prodConfig)]

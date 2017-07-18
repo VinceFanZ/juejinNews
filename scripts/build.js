@@ -8,7 +8,7 @@ const compiler = webpack(config)
 
 function build() {
   console.log('Creating an optimized production build...')
-  compiler.run((err, stats) => {
+  compiler.run((err, multiStats) => {
     if (err) {
       console.log(chalk.red('Failed to compile.'))
       console.log(chalk.red(err.stack || err))
@@ -18,32 +18,36 @@ function build() {
       process.exit(1)
     }
 
-    const info = stats.toJson()
+    multiStats.stats.forEach((stats) => {
+      console.log(chalk.green(`compiling ${stats.compilation.compiler.name}`))
+      const info = stats.toJson()
+      if (stats.hasErrors()) {
+        console.log(chalk.red('Error:'))
+        console.log(chalk.red(info.errors))
+        process.exit(1)
+      }
 
-    if (stats.hasErrors()) {
-      console.log(chalk.red('Error:'))
-      console.log(chalk.red(info.errors))
-      process.exit(1)
-    }
+      if (stats.hasWarnings()) {
+        console.log(chalk.yellow('Warning:'))
+        console.log(chalk.yellow(info.warnings))
+      }
+      // compile print
+      const options = {
+        colors: true,
+        modules: false,
+        children: false,
+        chunks: false,
+        chunkModules: false,
+        warnings: false,
+        errors: false
+      }
+      console.log(`${stats.toString(options)}\n`)
+    })
 
-    if (stats.hasWarnings()) {
-      console.log(chalk.yellow('Warning:'))
-      console.log(chalk.yellow(info.warnings))
-    }
-    // compile print
-    console.log(`${stats.toString({
-      colors: true,
-      modules: false,
-      children: false,
-      chunks: false,
-      chunkModules: false,
-      warnings: false,
-      errors: false
-    })}\n`)
     console.log(chalk.green('Compiled successfully!'))
   })
 }
 
-// shell.rm('-rf', paths.appBuild)
+shell.rm('-rf', paths.appBuild)
 
 build()
