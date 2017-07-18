@@ -1,12 +1,18 @@
 const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
+const paths = require('./paths')
 
 const devConfig = {
   output: {
     publicPath: '/'
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: paths.appHtml,
+      inject: true,
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({

@@ -1,6 +1,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const merge = require('webpack-merge')
 const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
@@ -9,6 +10,7 @@ const vendorManifest = require('../vendor-manifest')
 
 const dll = {
   name: 'vendor',
+  context: path.resolve('src'),
   entry: {
     vendor: [
       'react',
@@ -21,11 +23,22 @@ const dll = {
     library: '[name]_[hash]'
   },
   plugins: [
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    // new webpack.optimize.UglifyJsPlugin(),
     new webpack.DllPlugin({
       path: path.join(__dirname, '..', '[name]-manifest.json'),
       name: '[name]_[hash]',
       context: path.resolve('src'),
     }),
+    new HtmlWebpackPlugin({
+      template: paths.appHtml,
+      filename: path.join(__dirname, '..', paths.appBuild, 'index.temp.html'),
+      inject: true,
+    })
   ],
 }
 
@@ -64,6 +77,11 @@ const prodConfig = {
     }),
     new ExtractTextPlugin({
       filename: 'static/styles/[name].css'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '..', paths.appBuild, 'index.temp.html'),
+      filename: path.join(__dirname, '..', paths.appBuild, 'index.html'),
+      inject: true,
     }),
     new PwaManifest({
       name: 'Funny',

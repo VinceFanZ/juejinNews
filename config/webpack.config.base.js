@@ -1,5 +1,4 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const eslintFormatter = require('eslint-friendly-formatter')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const postcssImport = require('postcss-import')
@@ -91,9 +90,5 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
-    })
   ],
 }
