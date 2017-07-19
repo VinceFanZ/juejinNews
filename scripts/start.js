@@ -7,7 +7,7 @@ const getProcessForPort = require('./getProcessForPort')
 const clearConsole = require('./clearConsole')
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000
-const HOST = process.env.HOST || '0.0.0.0'
+const HOST = process.env.HOST || 'localhost'
 let compiler
 
 function setupCompiler() {
@@ -37,6 +37,12 @@ function runDevServer(protocol, host, port) {
       chunks: false,
       modules: false,
     },
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:2999',
+        changeOrigin: true
+      },
+    }
   })
 
   devServer.listen(port, host, (err) => {

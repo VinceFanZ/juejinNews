@@ -6,9 +6,10 @@
   "author": "vince <vincefanz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development node ./scripts/start.js",
+    "start": "yarn run mock & NODE_ENV=development node ./scripts/start.js",
     "dll": "webpack --config ./config/webpack.config.dll.js",
-    "build": "NODE_ENV=production node ./scripts/build.js"
+    "build": "NODE_ENV=production node ./scripts/build.js",
+    "mock": "node ./scripts/json-server.js"
   },
   "dependencies": {
     "react": "^15.6.1",
@@ -42,6 +43,7 @@
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
+    "json-server": "^0.11.2",
     "postcss-cssnext": "^3.0.2",
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
