@@ -2,11 +2,21 @@ const webpack = require('webpack')
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const merge = require('webpack-merge')
 const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
+const vendorConfig = require('../vendor-config')
 const vendorManifest = require('../vendor-manifest')
+
+const pathsToClean = ['dist']
+const cleanOptions = {
+  root: __dirname,
+  exclude: ['vendor.*.js'],
+  verbose: true,
+  dry: false
+}
 
 const prodConfig = {
   cache: false,
@@ -15,6 +25,7 @@ const prodConfig = {
     filename: 'static/js/[name].[hash:8].js'
   },
   plugins: [
+    new CleanWebpackPlugin(pathsToClean, cleanOptions),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production')
     }),
@@ -44,9 +55,10 @@ const prodConfig = {
       filename: 'static/styles/[name].css'
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, '..', paths.appBuild, 'index.temp.html'),
+      template: paths.appHtml,
       filename: path.join(__dirname, '..', paths.appBuild, 'index.html'),
       inject: true,
+      vendorName: vendorConfig.vendor.js
     }),
     new PwaManifest({
       name: 'Funny',

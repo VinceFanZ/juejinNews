@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const AssetsPlugin = require('assets-webpack-plugin')
 const paths = require('./paths')
 
 module.exports = {
@@ -29,10 +29,9 @@ module.exports = {
       name: '[name]_[hash]',
       context: path.resolve('src'),
     }),
-    new HtmlWebpackPlugin({
-      template: paths.appHtml,
-      filename: path.join(__dirname, '..', paths.appBuild, 'index.temp.html'),
-      inject: true,
-    })
+    new AssetsPlugin({
+      filename: 'vendor-config.json',
+      path: path.join(__dirname, '..')
+    }),
   ],
 }

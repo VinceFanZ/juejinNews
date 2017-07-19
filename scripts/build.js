@@ -1,8 +1,6 @@
-const shell = require('shelljs')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config/webpack.config.prod')
-const paths = require('../config/paths')
 
 const compiler = webpack(config)
 
@@ -45,7 +43,5 @@ function build() {
     console.log(chalk.green('Compiled successfully!'))
   })
 }
-
-// shell.rm('-rf', paths.appBuild)
 
 build()
