@@ -1,19 +1,21 @@
-const webpack = require('webpack')
 const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const merge = require('webpack-merge')
 const PwaManifest = require('webpack-pwa-manifest')
 const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
 const vendorConfig = require('../vendor-config')
 const vendorManifest = require('../vendor-manifest')
 
-const pathsToClean = ['dist']
+const pathsToClean = [
+  'static/js/main.*.js',
+  'static/styles/'
+]
 const cleanOptions = {
-  root: __dirname,
-  exclude: ['vendor.*.js'],
+  root: path.join(__dirname, '..', paths.appBuild),
   verbose: true,
   dry: false
 }
@@ -52,13 +54,18 @@ const prodConfig = {
       }
     }),
     new ExtractTextPlugin({
-      filename: 'static/styles/[name].css'
+      filename: 'static/styles/[name].[hash:8].css'
     }),
     new HtmlWebpackPlugin({
       template: paths.appHtml,
       filename: path.join(__dirname, '..', paths.appBuild, 'index.html'),
       inject: true,
-      vendorName: vendorConfig.vendor.js
+      vendorName: vendorConfig.vendor.js,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
     }),
     new PwaManifest({
       name: 'Funny',
