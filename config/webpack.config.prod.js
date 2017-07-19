@@ -8,43 +8,8 @@ const paths = require('./paths')
 const baseConfig = require('./webpack.config.base')
 const vendorManifest = require('../vendor-manifest')
 
-const dll = {
-  name: 'vendor',
-  context: path.resolve('src'),
-  entry: {
-    vendor: [
-      'react',
-      'react-dom'
-    ],
-  },
-  output: {
-    path: path.resolve(paths.appBuild),
-    filename: 'static/js/[name].[hash:8].js',
-    library: '[name]_[hash]'
-  },
-  plugins: [
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('production')
-    //   }
-    // }),
-    // new webpack.optimize.UglifyJsPlugin(),
-    new webpack.DllPlugin({
-      path: path.join(__dirname, '..', '[name]-manifest.json'),
-      name: '[name]_[hash]',
-      context: path.resolve('src'),
-    }),
-    new HtmlWebpackPlugin({
-      template: paths.appHtml,
-      filename: path.join(__dirname, '..', paths.appBuild, 'index.temp.html'),
-      inject: true,
-    })
-  ],
-}
-
 const prodConfig = {
   cache: false,
-  dependencies: ['vendor'],
   output: {
     publicPath: paths.servedPath,
     filename: 'static/js/[name].[hash:8].js'
@@ -97,4 +62,4 @@ const prodConfig = {
   devtool: 'source-map'
 }
 
-module.exports = [dll, merge(baseConfig, prodConfig)]
+module.exports = merge(baseConfig, prodConfig)
