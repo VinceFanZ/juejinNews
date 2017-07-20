@@ -37,6 +37,7 @@ function runDevServer(protocol, host, port) {
       chunks: false,
       modules: false,
     },
+    historyApiFallback: true,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:2999',

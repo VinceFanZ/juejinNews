@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import RootContainer from './containers/rootContainer'
 
 import './styles/normalize.css'
+import './styles/index.css'
 
 ReactDOM.render(
   <RootContainer />,

@@ -1,7 +1,7 @@
 import React from 'react'
 import app from '../styles/index.css'
 
-class App extends React.PureComponent {
+class Frontend extends React.PureComponent {
   state = {
     date: new Date()
   }
@@ -23,6 +23,7 @@ class App extends React.PureComponent {
   render() {
     return (
       <div>
+        <h2>Frontend</h2>
         <p className={`${app.title} ${app['fs-18']}`}>DATE</p>
         <p>{this.state.date.toLocaleTimeString()}</p>
       </div>
@@ -30,4 +31,4 @@ class App extends React.PureComponent {
   }
 }
 
-export default App
+export default Frontend
