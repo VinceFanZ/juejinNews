@@ -8,7 +8,7 @@
   transform: translateZ(0);
 }
 
-.nav-item {
+.item {
   position: relative;
   display: flex;
   height: 100%;
@@ -20,11 +20,11 @@
   cursor: pointer;
 }
 
-.nav-item > a {
+.item > a {
   color: inherit;
 }
 
-.nav-item > a::before {
+.item > a::before {
   content: "";
   position: absolute;
   top: 0;
@@ -33,7 +33,7 @@
   left: 0;
 }
 
-.nav-item > a:hover,
-.nav-item.active > a {
+.item > a:hover,
+.item.active > a {
     color: #007fff;
 }

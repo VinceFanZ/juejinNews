@@ -7,12 +7,12 @@ import {
 import PropTypes from 'prop-types'
 import All from '../views/all'
 import Frontend from '../views/frontend'
-import styles from '../styles/nav.css'
+import nav from '../styles/nav.css'
 
 const rootContainer = () => (
   <Router>
     <div>
-      <nav className={styles.nav}>
+      <nav className={nav.nav}>
         <NavRoute activeOnlyWhenExact to="/" label="全部" />
         <NavRoute to="/frontend" label="前端" />
       </nav>
@@ -33,7 +33,7 @@ const NavRoute = ({ activeOnlyWhenExact, to, label }) => (
 )
 
 const NavItem = ({ match, to, label }) => (
-  <div className={`${styles['nav-item']} ${(match ? styles.active : '')}`}>
+  <div className={`${nav.item} ${(match ? nav.active : '')}`}>
     <Link to={to}>{ label }</Link>
   </div>
 )
