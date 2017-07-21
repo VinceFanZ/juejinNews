@@ -1,10 +1,12 @@
 import React from 'react'
 import service from '../service'
+import Loading from '../components/Loading'
 import Item from '../components/Item'
 
 class Frontend extends React.PureComponent {
   state = {
-    list: []
+    list: [],
+    isLoading: true,
   }
 
   componentDidMount () {
@@ -17,7 +19,8 @@ class Frontend extends React.PureComponent {
   async getData () {
     const data = await service.getRankData('5562b415e4b00c57d9b94ac8')
     this.setState({
-      list: data.entrylist
+      list: data.entrylist,
+      isLoading: false,
     })
   }
 
@@ -43,6 +46,9 @@ class Frontend extends React.PureComponent {
   render () {
     return (
       <div>
+        {
+          this.state.isLoading && <Loading />
+        }
         {
           this.itemsRender()
         }
