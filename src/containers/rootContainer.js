@@ -1,13 +1,15 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import All from '../views/all'
-import Frontend from '../views/frontend'
+import asyncComponent from '../components/asyncComponent'
 import nav from '../styles/nav.css'
+
+const All = asyncComponent(() => System.import('../views/all'))
+const Frontend = asyncComponent(() => System.import('../views/frontend'))
 
 const rootContainer = () => (
   <Router>
