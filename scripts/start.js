@@ -10,7 +10,7 @@ const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000
 const HOST = process.env.HOST || 'localhost'
 let compiler
 
-function setupCompiler() {
+function setupCompiler () {
   compiler = webpack(webpackConfig)
 
   compiler.plugin('done', () => {
@@ -18,7 +18,7 @@ function setupCompiler() {
   })
 }
 
-function runDevServer(protocol, host, port) {
+function runDevServer (protocol, host, port) {
   const devServer = new WebpackDevServer(compiler, {
     compress: true,
     clientLogLevel: 'none',
@@ -43,6 +43,10 @@ function runDevServer(protocol, host, port) {
         target: 'http://127.0.0.1:2999',
         changeOrigin: true
       },
+      '/v1': {
+        target: 'http://timeline-merger-ms.juejin.im',
+        changeOrigin: true
+      },
     }
   })
 
@@ -54,7 +58,7 @@ function runDevServer(protocol, host, port) {
   })
 }
 
-function run(port) {
+function run (port) {
   const protocol = process.env.HTTPS === 'true'
     ? 'https'
     : 'http'

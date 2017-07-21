@@ -4,7 +4,7 @@ const config = require('../config/webpack.config.prod')
 
 const compiler = webpack(config)
 
-function build() {
+function build () {
   console.log('Creating an optimized production build...')
   compiler.run((err, stats) => {
     if (err) {
