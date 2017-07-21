@@ -23,7 +23,7 @@ export default function asyncComponent(importComponent) {
 
       return C
         ? <C {...this.props} />
-        : null
+        : <div> Loading ......</div>
     }
 
   }
