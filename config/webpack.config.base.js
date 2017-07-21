@@ -74,6 +74,32 @@ module.exports = {
           : ['style-loader'].concat(cssLoader)
       },
 
+      {
+        exclude: [
+          /\.html$/,
+          /\.(js|jsx)$/,
+          /\.css$/,
+          /\.json$/,
+          /\.bmp$/,
+          /\.gif$/,
+          /\.jpe?g$/,
+          /\.png$/,
+        ],
+        loader: 'file-loader',
+        options: {
+          name: 'static/assets/[name].[hash:8].[ext]',
+        },
+      },
+
+      {
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 80000,
+          name: 'static/assets/[name].[hash:8].[ext]',
+        },
+      },
+
     ],
     noParse: /node_modules\/(jquey|chart\.js)/  // 脱离webpack的解析
   },
@@ -83,7 +109,7 @@ module.exports = {
       path.join(__dirname, '..', 'src'),
       'node_modules'
     ],
-    extensions: ['.js', '.json'],
+    extensions: ['.js', '.json', '.jpg', '.jpeg', '.png', '.svg'],
     alias: {
     },
     mainFields: ['jsnext:main', 'browser', 'module', 'main'],  // 优化支持tree-shaking的库
