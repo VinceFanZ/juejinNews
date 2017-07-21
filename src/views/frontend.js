@@ -6,21 +6,21 @@ class Frontend extends React.PureComponent {
     date: new Date()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.timerID = setInterval(() => this.tick(), 1000)
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     clearInterval(this.timerID)
   }
 
-  tick() {
+  tick () {
     this.setState({
       date: new Date()
     })
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h2>Frontend</h2>
