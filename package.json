@@ -8,14 +8,16 @@
   "scripts": {
     "mock": "node ./scripts/json-server.js",
     "dll": "webpack --config ./config/webpack.config.dll.js",
-    "start" : "NODE_ENV=development node ./scripts/start.js",
+    "start": "NODE_ENV=development node ./scripts/start.js",
     "build": "NODE_ENV=production node ./scripts/build.js",
     "dev": "yarn run mock & yarn start",
     "prebuild:all": "yarn run dll",
     "build:all": "yarn build"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "prop-types": "^15.5.10",
+    "qs": "^6.5.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.1.2",
