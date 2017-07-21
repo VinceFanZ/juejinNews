@@ -10,6 +10,7 @@ import nav from '../styles/nav.css'
 
 const All = asyncComponent(() => System.import('../views/all'))
 const Frontend = asyncComponent(() => System.import('../views/frontend'))
+const Freebie = asyncComponent(() => System.import('../views/freebie.js'))
 
 const rootContainer = () => (
   <Router>
@@ -17,10 +18,12 @@ const rootContainer = () => (
       <nav className={nav.nav}>
         <NavRoute activeOnlyWhenExact to="/" label="全部" />
         <NavRoute to="/frontend" label="前端" />
+        <NavRoute to="/freebie" label="工具资源" />
       </nav>
 
       <Route exact path="/" component={All} />
       <Route path="/frontend" component={Frontend} />
+      <Route path="/freebie" component={Freebie} />
     </div>
   </Router>
 )

@@ -1,31 +1,51 @@
 import React from 'react'
-import app from '../styles/index.css'
+import service from '../service'
+import Item from '../components/Item'
 
 class Frontend extends React.PureComponent {
   state = {
-    date: new Date()
+    list: []
   }
 
   componentDidMount () {
-    this.timerID = setInterval(() => this.tick(), 1000)
+    this.getData()
   }
 
   componentWillUnmount () {
-    clearInterval(this.timerID)
   }
 
-  tick () {
+  async getData () {
+    const data = await service.getRankData('5562b415e4b00c57d9b94ac8')
     this.setState({
-      date: new Date()
+      list: data.entrylist
     })
+  }
+
+  itemsRender () {
+    const { list } = this.state
+    if (!list) {
+      return null
+    }
+    return list.map(item => (
+      <Item
+        key={item.objectId}
+        originalUrl={item.originalUrl}
+        title={item.title}
+        content={item.content}
+        collectionCount={item.collectionCount}
+        commentsCount={item.commentsCount}
+        username={item.user.username}
+        avatarLarge={item.user.avatarLarge}
+      />)
+    )
   }
 
   render () {
     return (
       <div>
-        <h2>Frontend</h2>
-        <p className={`${app.title} ${app['fs-18']}`}>DATE</p>
-        <p>{this.state.date.toLocaleTimeString()}</p>
+        {
+          this.itemsRender()
+        }
       </div>
     )
   }
