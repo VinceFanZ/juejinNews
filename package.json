@@ -6,10 +6,13 @@
   "author": "vince <vincefanz@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "yarn run mock & NODE_ENV=development node ./scripts/start.js",
+    "mock": "node ./scripts/json-server.js",
     "dll": "webpack --config ./config/webpack.config.dll.js",
+    "start" : "NODE_ENV=development node ./scripts/start.js",
     "build": "NODE_ENV=production node ./scripts/build.js",
-    "mock": "node ./scripts/json-server.js"
+    "dev": "yarn run mock & yarn start",
+    "prebuild:all": "yarn run dll",
+    "build:all": "yarn build"
   },
   "dependencies": {
     "prop-types": "^15.5.10",

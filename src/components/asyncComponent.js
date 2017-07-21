@@ -4,7 +4,6 @@ export default function asyncComponent(importComponent) {
   class AsyncComponent extends Component {
     state = {
       component: null,
-      name: 0
     }
 
     componentDidMount() {
