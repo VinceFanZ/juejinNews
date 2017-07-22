@@ -95,7 +95,7 @@ module.exports = {
         test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         loader: 'url-loader',
         options: {
-          limit: 80000,
+          limit: 8192,
           name: 'static/assets/[name].[hash:8].[ext]',
         },
       },

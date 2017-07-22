@@ -1,6 +1,6 @@
 .loading {
   position: absolute;
-  top: 16%;
+  top: 25%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
   display: block;
