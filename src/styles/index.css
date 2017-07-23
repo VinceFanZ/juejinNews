@@ -11,4 +11,5 @@ html {
   background-color: #f4f5f5;
   color: #333;
   word-break: break-word;
+  touch-action: manipulation;
 }
