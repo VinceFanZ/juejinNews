@@ -109,7 +109,7 @@ module.exports = {
       path.join(__dirname, '..', 'src'),
       'node_modules'
     ],
-    extensions: ['.js', '.json', '.jpg', '.jpeg', '.png', '.svg'],
+    extensions: ['.js', '.json'],
     alias: {
     },
     mainFields: ['jsnext:main', 'browser', 'module', 'main'],  // 优化支持tree-shaking的库
