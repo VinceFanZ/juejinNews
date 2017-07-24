@@ -1,31 +1,40 @@
 import React from 'react'
-import {
-  HashRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { Route, Link } from 'react-router-dom'
+import createHistory from 'history/createHashHistory'
+import { ConnectedRouter } from 'react-router-redux'
+
 import PropTypes from 'prop-types'
+import configureStore from '../store/configureStore'
 import asyncComponent from '../components/asyncComponent'
 import nav from '../styles/nav.css'
 
 const All = asyncComponent(() => System.import('../views/all'))
 const Frontend = asyncComponent(() => System.import('../views/frontend'))
-const Freebie = asyncComponent(() => System.import('../views/freebie.js'))
+const Freebie = asyncComponent(() => System.import('../views/freebie'))
+const Other = asyncComponent(() => System.import('../views/other.js'))
+
+const history = createHistory()
+const store = configureStore(history)
 
 const rootContainer = () => (
-  <Router>
-    <div>
-      <nav className={nav.nav}>
-        <NavRoute activeOnlyWhenExact to="/" label="全部" />
-        <NavRoute to="/frontend" label="前端" />
-        <NavRoute to="/freebie" label="工具资源" />
-      </nav>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <div>
+        <nav className={nav.nav}>
+          <NavRoute activeOnlyWhenExact to="/" label="全部" />
+          <NavRoute to="/frontend" label="前端" />
+          <NavRoute to="/freebie" label="工具资源" />
+          <NavRoute to="/other" label="other" />
+        </nav>
 
-      <Route exact path="/" component={All} />
-      <Route path="/frontend" component={Frontend} />
-      <Route path="/freebie" component={Freebie} />
-    </div>
-  </Router>
+        <Route exact path="/" component={All} />
+        <Route path="/frontend" component={Frontend} />
+        <Route path="/freebie" component={Freebie} />
+        <Route path="/other" component={Other} />
+      </div>
+    </ConnectedRouter>
+  </Provider>
 )
 
 const NavRoute = ({ activeOnlyWhenExact, to, label }) => (
