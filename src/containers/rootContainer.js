@@ -25,7 +25,6 @@ const rootContainer = () => (
           <NavRoute activeOnlyWhenExact to="/" label="全部" />
           <NavRoute to="/frontend" label="前端" />
           <NavRoute to="/freebie" label="工具资源" />
-          <NavRoute to="/other" label="other" />
         </nav>
 
         <Route exact path="/" component={All} />
