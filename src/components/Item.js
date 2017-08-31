@@ -21,7 +21,7 @@ class Item extends React.PureComponent {
     username: PropTypes.string,
     avatarLarge: PropTypes.string,
   }
-  statte = {}
+  state = {}
 
   render () {
     const {
