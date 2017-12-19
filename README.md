@@ -1,4 +1,4 @@
-# funnyWeb
+# juejinNews
 
 ## development server
 
